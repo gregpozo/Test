@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>My Gas Prices Chart</title>
+  <style>
+  .chartContainer {
+    background-color: #263238;
+    padding: 20px;
+    }
+    body{
+        background-color:#263238;
+    }   
+  </style>
+</head>
+<body onload="drawCharts()">
+        <br><br>
+        <div class="chartContainer">
+          <canvas id="lineChartBlueGreen" width="400px" height="800px"></canvas>
+        </div>
+        <br><br>
+<!-- <body>
+    <div class="container">
+        <canvas id="line-chart"></canvas>
+    </div> -->
+
+    <script>
+    //this is the data to be plotted
+    var results = [
+    {
+        date: "2000",
+        visits: 34
+    },
+    {
+        date: "2002",
+        visits: 36
+    },
+    {
+        date: "2004",
+        visits: 92
+    },
+    {
+        date: "2006",
+        visits: 124
+    },
+    {
+        date: "2008",
+        visits: 166
+    },
+    {
+        date: "2010",
+        visits: 155
+    },
+    {
+        date: "2012",
+        visits: 214
+    },
+    {
+        date: "2014",
+        visits: 237
+    },
+    {
+        date: "2016",
+        visits: 176
+    },
+    {
+        date: "2018",
+        visits: 223
+    }
+    ];
+
+    //this is the function to create the line chart
+    function drawLineChart(div_id, results, yColumn, yLabel, xAxes, firstColour, secondColour, thirdColour, fourthColour) {
+    var ctx = document.getElementById(div_id).getContext("2d");
+    var width = window.innerWidth || document.body.clientWidth;
+    var gradientStroke = ctx.createLinearGradient(0, 0, width, 0);
+    gradientStroke.addColorStop(0, firstColour);
+    gradientStroke.addColorStop(0.3, secondColour);
+    gradientStroke.addColorStop(0.6, thirdColour);
+    gradientStroke.addColorStop(1, fourthColour);
+
+    var labels = results.map(function(item) {
+        return item[xAxes];
+    });
+    var data = results.map(function(item) {
+        return item[yColumn];
+    });
+
+    Chart.defaults.global.defaultFontSize = 16;
+
+    var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+        labels: labels,
+        datasets: [
+            {
+            label: yLabel,
+            borderColor: gradientStroke,
+            pointBorderColor: gradientStroke,
+            pointBackgroundColor: gradientStroke,
+            pointHoverBackgroundColor: gradientStroke,
+            pointHoverBorderColor: gradientStroke,
+            pointBorderWidth: 8,
+            pointHoverRadius: 8,
+            pointHoverBorderWidth: 1,
+            pointRadius: 3,
+            fill: false,
+            borderWidth: 4,
+            data: data
+            }
+        ]
+        },
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            position: "none"
+        },
+        title: {
+             display: true,
+             defaultFontSize: 20,
+             text: 'Precio Promedio Por Año de Gasolina Regular'
+        },
+        scales: {
+            yAxes: [
+            {
+                ticks: {
+                fontFamily: "Lato",
+                fontColor: "#556F7B",
+                fontStyle: "bold",
+                beginAtZero: true,
+                maxTicksLimit: 5,
+                padding: 20
+                },
+                gridLines: {
+                drawTicks: false,
+                display: false,
+                drawBorder: false
+                }
+            }
+            ],
+            xAxes: [
+            {
+                gridLines: {
+                zeroLineColor: "transparent"
+                },
+                ticks: {
+                padding: 20,
+                fontColor: "#556F7B",
+                fontStyle: "bold",
+                fontFamily: "Lato"
+                },
+                gridLines: {
+                drawTicks: false,
+                display: false,
+                drawBorder: false
+                }
+            }
+            ]
+        }
+        }
+    });
+    }
+
+
+    //this is to initialise the charts
+    function drawCharts() {
+    drawLineChart(
+        "lineChartBlueGreen",
+        results,
+        "visits",
+        "Number of visits",
+        "date",
+        "#7C4DFF",
+        "#448AFF",
+        "#00BCD4",
+        "#1DE9B6"
+    );
+    drawLineChart(
+        "lineChartPinkOrange",
+        results,
+        "visits",
+        "Number of visits",
+        "date",
+        "#F44336",
+        "#F50057",
+        "#FF4081",
+        "#FF9100"
+    );
+    }
+    // new Chart(document.getElementById("line-chart"), 
+    // {
+    //     type: 'line',
+    //     data: {
+    //         labels: [2000,2002,2004,2006,2008,2010,2012,2014,2016,2018],
+    //         datasets: [{ 
+    //             data: [34,36,92,124,166,155,214,237,175,224],
+    //             label: "Gasolina Regular",
+    //             borderColor: "#3e95cd",
+    //             fill: true
+    //         }
+    //         ]
+    //     },
+    //     options: {
+    //         title: {
+    //         display: true,
+    //         text: 'World population per region (in millions)'
+    //         }
+    //     }
+    // });
+    </script>
+</body>
+</html>
